@@ -1,60 +1,72 @@
-# 6DoF Spatial Audio Prototype
+# 6DoF Spatial Audio — Real-Time Head-Tracked Rendering Prototype
 
-Real-time spatial audio system developed at Politecnico di Torino.
+Real-time **6 Degrees of Freedom (6DoF) spatial audio prototype** combining
+Python middleware, motion/head tracking, OSC/UDP communication,
+Higher-Order Ambisonics and binaural rendering in REAPER.
 
-The project explores 6 Degrees of Freedom spatial audio rendering,
-combining real-time head tracking, OSC/UDP communication,
-Ambisonics processing and binaural rendering.
+Developed as an academic project during the MSc in **Cinema and Media Engineering**
+at **Politecnico di Torino**.
 
-## Features
+---
 
-- Real-time 6DoF spatial audio rendering
-- Python middleware for sensor data processing
-- OSC/UDP communication at 60 FPS
-- Ambisonics HOA routing
-- HRTF/HRIR binaural rendering
-- 16-channel audio routing architecture
-- Head-tracking integration
-- Real-time operation with a 512-sample audio buffer
+## Why this project
 
-## Architecture
+Traditional binaural audio reproduces a spatial scene from a fixed listening position.
 
-Sensor / Head Tracking
-        ↓
-Python Middleware
-        ↓
-OSC / UDP
-        ↓
-REAPER
-        ↓
-Spatial Processing / Ambisonics
-        ↓
-HRTF / HRIR
-        ↓
-Binaural Output
+This project explores a more interactive approach: the listener can move and rotate
+inside a virtual acoustic environment while the system continuously updates the
+spatial rendering of the sound field.
 
-## Technologies
+The goal was to design a real-time pipeline capable of translating tracking data into
+audio-rendering parameters while maintaining spatial consistency and low-latency
+interaction.
 
-- Python
-- NumPy
-- python-osc
-- REAPER
-- OSC / UDP
-- Ambisonics
-- HRTF / HRIR
-- COMPASS 6DoF
+---
 
-## Project Context
+## What I worked on
 
-Developed as an academic project during the MSc in Cinema and Media
-Engineering at Politecnico di Torino.
+My contribution focused on the software and real-time audio pipeline, including:
 
-The system was designed to investigate real-time listener movement
-inside a spatial audio environment while maintaining perceptual
-consistency of virtual sound sources.
+- development of a **Python middleware** for processing tracking data;
+- real-time communication between the tracking system and REAPER using **OSC/UDP**;
+- management and transformation of positional/orientation data;
+- integration with the spatial audio rendering environment;
+- testing and debugging of the real-time interaction pipeline;
+- analysis of routing, phase and spatial rendering behavior.
 
-## Author
+> This repository contains the technical material and implementation used for the
+> academic prototype.
 
-Riccardo Barbo
-MSc Student in Cinema and Media Engineering
-Politecnico di Torino
+---
+
+## System Architecture
+
+```text
+       Head / Motion Tracking
+                │
+                │ position + orientation
+                ▼
+       ┌─────────────────────┐
+       │  Python Middleware  │
+       │ middleware_6dof.py  │
+       └─────────────────────┘
+                │
+              OSC/UDP
+                │
+                ▼
+       ┌─────────────────────┐
+       │       REAPER        │
+       │ Spatial Audio Scene │
+       └─────────────────────┘
+                │
+                ▼
+     Higher-Order Ambisonics
+                │
+                ▼
+        HRTF / HRIR Rendering
+                │
+                ▼
+          Binaural Output
+                │
+                ▼
+            Headphones
